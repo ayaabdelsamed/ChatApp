@@ -4,16 +4,16 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../contoller/chats_cubit.dart';
-import '../../model/entity_model/users_model.dart';
+import '../../../chats/model/entity_model/users_model.dart';
+import '../../contoller/favourite_cubit.dart';
 
-class UserItemWidget extends StatelessWidget {
-  const UserItemWidget({super.key,
+class FavoriteItemWidget extends StatelessWidget {
+  const FavoriteItemWidget({super.key,
     required this.usersModel,
     required this.controller,
   });
   final UsersModel usersModel;
-  final ChatsCubit controller ;
+  final FavoriteCubit controller ;
 
 
   @override
@@ -31,27 +31,28 @@ class UserItemWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                       Column(
+                      Column(
                       children: [
-                        Text(usersModel.image!.length.toString()),
-                  /*    CircleAvatar(
+
+
+                        /*
+                      const CircleAvatar(
                           radius: 25,
                           backgroundImage: AssetImage("images/profile.jpg"),
                         )
-                        usersModel.image== null ? CircleAvatar(
-                  radius: 25,
-                  backgroundImage: AssetImage("images/profile.jpg"),
-                ):*/
+
+,
+*/
+
                         ClipRRect(
                           borderRadius: BorderRadius.circular(25),
                           child: Image.memory(
-                            usersModel.image!,
+                            usersModel.image ?? Uint8List(5),
                             height: 50,
                             width: 50,
                             fit: BoxFit.fill,
                           ),
                         ),
-
 
                       ],
                     ),
@@ -103,17 +104,7 @@ class UserItemWidget extends StatelessWidget {
                     )
 
                     ,
-                    InkWell(child: usersModel.favorite ==1?
-                    Icon(CupertinoIcons.delete, color: Colors.purple.shade700,)
-                        :const Icon(CupertinoIcons.delete),
-                        onTap :(){
-                          if (usersModel.favorite==1){
-                            controller.addChatToFavorite(usersModel.id?? 0,0);
-                          } else{
-                            controller.addChatToFavorite(usersModel.id?? 0,1);
-                          }
-                        }
-                    ),
+
                   ],
                 )
               ],
